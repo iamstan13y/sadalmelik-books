@@ -26,5 +26,19 @@ namespace sadalmelik_books.Controllers
             _booksService.AddBook(book);
             return Ok();
         }
+
+        [HttpGet("get-all-books")]
+        public IActionResult GetAllBooks()
+        {
+            var books = _booksService.GetAllBooks();
+            return Ok(books);
+        }
+
+        [HttpGet("get-book-by-id/{id}")]
+        public IActionResult GetBookById([FromRoute] int id)
+        {
+            var book = _booksService.GetBookById(id);
+            return Ok(book);
+        }
     }
 }

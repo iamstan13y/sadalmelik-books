@@ -34,5 +34,8 @@ namespace sadalmelik_books.Data.Services
             _context.Books.Add(_book);
             _context.SaveChanges();
         }
+
+        public List<Book> GetAllBooks() => _context.Books.ToList();
+        public Book GetBookById(int bookId) => _context.Books.FirstOrDefault(x => x.Id == bookId);
     }
 }

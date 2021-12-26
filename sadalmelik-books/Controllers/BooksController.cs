@@ -40,5 +40,12 @@ namespace sadalmelik_books.Controllers
             var book = _booksService.GetBookById(id);
             return Ok(book);
         }
+
+        [HttpPut("update-book/{id}")]
+        public IActionResult UpdateBook(int id, [FromBody] BookVM book)
+        {
+            var result = _booksService.UpdateBook(id, book);
+            return Ok(result);
+        }
     }
 }

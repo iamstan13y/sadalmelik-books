@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using sadalmelik_books.Data;
+using sadalmelik_books.Data.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,9 @@ namespace sadalmelik_books
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(ConnectionString));
+
+            services.AddTransient<BooksService>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

@@ -55,5 +55,15 @@ namespace sadalmelik_books.Data.Services
             _context.SaveChanges();
             return _book;
         }
+
+        public void DeleteBook(int bookId)
+        {
+            var book = _context.Books.FirstOrDefault(x => x.Id == bookId);
+            if (book != null)
+            {
+                _context.Books.Remove(book);
+                _context.SaveChanges();
+            }
+        }
     }
 }

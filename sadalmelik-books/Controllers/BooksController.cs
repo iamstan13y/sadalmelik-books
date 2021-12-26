@@ -47,5 +47,12 @@ namespace sadalmelik_books.Controllers
             var result = _booksService.UpdateBook(id, book);
             return Ok(result);
         }
+
+        [HttpDelete("delete-book/{id}")]
+        public IActionResult DeleteBook(int id)
+        {
+            _booksService.DeleteBook(id);
+            return Ok();
+        }
     }
 }

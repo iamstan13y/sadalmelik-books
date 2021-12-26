@@ -20,7 +20,6 @@ namespace sadalmelik_books.Data
                 {
                     context.Books.Add(new Book
                     {
-                        Author = "Keith Stanley",
                         DateAdded = DateTime.Now,
                         CoverUrl = "https://....",
                         DateRead = DateTime.Now.AddDays(-10),

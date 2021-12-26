@@ -21,18 +21,30 @@ namespace sadalmelik_books.Data.Services
             var _book = new Book()
             {
                 Title = book.Title,
-                Author = book.Author,
                 Description = book.Description,
                 CoverUrl = book.CoverUrl,
                 IsRead = book.IsRead,
                 DateRead = book.IsRead ? book.DateRead.Value : null,
                 Rate = book.IsRead ? book.Rate : 0,
                 Genre = book.Genre,
-                DateAdded = DateTime.Now
+                DateAdded = DateTime.Now,
+                PublisherId = book.PublisherId
             };
 
             _context.Books.Add(_book);
             _context.SaveChanges();
+
+            foreach(var id in book.AuthorIds)
+            {
+                var _book_author = new Book_Author()
+                {
+                    BookId = _book.Id,
+                    AuthorId = id
+                };
+
+                _context.Book_Authors.Add(_book_author);
+                _context.SaveChanges();
+            }
         }
 
         public List<Book> GetAllBooks() => _context.Books.ToList();
@@ -43,7 +55,6 @@ namespace sadalmelik_books.Data.Services
             if (_book != null)
             {
                 _book.Title = book.Title;
-                _book.Author = book.Author;
                 _book.Description = book.Description;
                 _book.CoverUrl = book.CoverUrl;
                 _book.IsRead = book.IsRead;

@@ -48,7 +48,23 @@ namespace sadalmelik_books.Data.Services
         }
 
         public List<Book> GetAllBooks() => _context.Books.ToList();
-        public Book GetBookById(int bookId) => _context.Books.FirstOrDefault(x => x.Id == bookId);
+        public BookWithAuthorsVM GetBookById(int bookId)
+        {
+            var _bookWithAuthors = _context.Books.Where(n => n.Id == bookId).Select(book => new BookWithAuthorsVM
+            {
+                Title = book.Title,
+                Description = book.Description,
+                CoverUrl = book.CoverUrl,
+                IsRead = book.IsRead,
+                DateRead = book.IsRead ? book.DateRead.Value : null,
+                Rate = book.IsRead ? book.Rate : 0,
+                Genre = book.Genre,
+                PublisherName = book.Publisher.Name,
+                AuthorNames = book.Book_Authors.Select(n => n.Author.Fullname).ToList()
+            }).FirstOrDefault();
+
+            return _bookWithAuthors;
+        }
         public Book UpdateBook(int bookId, BookVM book)
         {
             var _book = _context.Books.FirstOrDefault(x => x.Id == bookId);

@@ -17,7 +17,10 @@ namespace sadalmelik_books.Data.Models
         public string Genre { get; set; }
         public string CoverUrl { get; set; }
         public DateTime DateAdded { get; set; }
-        public int? PublisherId { get; set; }
+        
+        public int PublisherId { get; set; }
         public Publisher Publisher{ get; set; }
+
+        public List<Book_Author> Book_Authors { get; set; }
     }
 }

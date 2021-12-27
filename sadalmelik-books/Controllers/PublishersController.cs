@@ -33,5 +33,12 @@ namespace sadalmelik_books.Controllers
             var response = _publishersService.GetPublisherData(id);
             return Ok(response);
         }
+
+        [HttpDelete("delete-publisher/{id}")]
+        public IActionResult DeletePublisher(int id)
+        {
+            _publishersService.DeletePublisherById(id);
+            return Ok();
+        }
     }
 }

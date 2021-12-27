@@ -23,8 +23,15 @@ namespace sadalmelik_books.Controllers
         [HttpPost("add-publisher")]
         public IActionResult AddPublisher([FromBody] PublisherVM publisher)
         {
-            var result = _publishersService.AddPublisher(publisher);
-            return Created(nameof(AddPublisher), result);
+            try
+            {
+                var result = _publishersService.AddPublisher(publisher);
+                return Created(nameof(AddPublisher), result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("get-publisher/{id}")]
@@ -52,8 +59,15 @@ namespace sadalmelik_books.Controllers
         [HttpDelete("delete-publisher/{id}")]
         public IActionResult DeletePublisher(int id)
         {
-            _publishersService.DeletePublisherById(id);
-            return Ok();
+            try
+            {
+                _publishersService.DeletePublisherById(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

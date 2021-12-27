@@ -55,6 +55,10 @@ namespace sadalmelik_books.Data.Services
                 _context.Publishers.Remove(publisher);
                 _context.SaveChanges();
             }
+            else
+            {
+                throw new Exception($"The Publisher with Id: {publisherId} does not exist!");
+            }
         }
     }
 }

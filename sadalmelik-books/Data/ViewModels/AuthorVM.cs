@@ -9,4 +9,10 @@ namespace sadalmelik_books.Data.ViewModels
     {
         public string Fullname { get; set; }
     }
+
+    public class AuthorWithBooksVM
+    {
+        public string Fullname { get; set; }
+        public List<string> BookTitles { get; set; }
+    }
 }

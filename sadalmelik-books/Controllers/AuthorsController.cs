@@ -21,10 +21,17 @@ namespace sadalmelik_books.Controllers
         }
 
         [HttpPost("add-author")]
-        public IActionResult AddBook([FromBody] AuthorVM author)
+        public IActionResult AddAuthor([FromBody] AuthorVM author)
         {
             _authorsService.AddAuthor(author);
             return Ok();
+        }
+
+        [HttpGet("get-author-with-books/{id}")]
+        public IActionResult GetAuthorWithBooks(int id)
+        {
+            var response = _authorsService.GetAuthorWithBooks(id);
+            return Ok(response);
         }
     }
 }

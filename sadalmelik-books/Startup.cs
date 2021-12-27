@@ -62,6 +62,7 @@ namespace sadalmelik_books
             app.UseAuthorization();
 
             app.ConfigureBuildInExceptionHandler();
+            //app.ConfigureCustomExceptionHandler();
 
             app.UseEndpoints(endpoints =>
             {

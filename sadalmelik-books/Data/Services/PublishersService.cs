@@ -26,5 +26,21 @@ namespace sadalmelik_books.Data.Services
             _context.Publishers.Add(_publisher);
             _context.SaveChanges();
         }
+
+        public PublisherWithBooksAndAuthorsVM GetPublisherData(int publisherId)
+        {
+            var _publisherData = _context.Publishers.Where(n => n.Id == publisherId)
+                .Select(n => new PublisherWithBooksAndAuthorsVM()
+                {
+                    Name = n.Name,
+                    Books = n.Books.Select(n => new BookAuthorVM()
+                    {
+                        BookName = n.Title,
+                        BookAuthors = n.Book_Authors.Select(n => n.Author.Fullname).ToList()
+                    }).ToList()
+                }).FirstOrDefault();
+
+            return _publisherData;
+        }
     }
 }

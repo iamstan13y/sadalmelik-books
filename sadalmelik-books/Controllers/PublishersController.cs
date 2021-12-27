@@ -26,5 +26,12 @@ namespace sadalmelik_books.Controllers
             _publishersService.AddPublisher(publisher);
             return Ok();
         }
+
+        [HttpGet("get-publisher-data/{id}")]
+        public IActionResult GetPublisherData(int id)
+        {
+            var response = _publishersService.GetPublisherData(id);
+            return Ok(response);
+        }
     }
 }

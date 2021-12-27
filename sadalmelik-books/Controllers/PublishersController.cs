@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using sadalmelik_books.ActionResults;
 using sadalmelik_books.Data.Services;
 using sadalmelik_books.Data.ViewModels;
 using sadalmelik_books.Exceptions;
@@ -41,27 +40,17 @@ namespace sadalmelik_books.Controllers
         }
 
         [HttpGet("get-publisher/{id}")]
-        public CustomActionResult GetPublisher(int id)
+        public IActionResult GetPublisher(int id)
         {
             var response = _publishersService.GetPublisherById(id);
 
             if (response != null)
             {
-                var _responseObj = new CustomActionResultVM()
-                {
-                    Publisher = response
-                };
-
-                return new CustomActionResult(_responseObj);
+                return Ok(response);
             }
             else
             {
-                var _responseObj = new CustomActionResultVM()
-                {
-                    Exception = new Exception("This came from Publishers controller.")
-                };
-
-                return new CustomActionResult(_responseObj);
+                return NotFound();
             }
         }
 

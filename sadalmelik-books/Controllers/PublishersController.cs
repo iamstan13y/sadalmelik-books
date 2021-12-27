@@ -23,8 +23,23 @@ namespace sadalmelik_books.Controllers
         [HttpPost("add-publisher")]
         public IActionResult AddPublisher([FromBody] PublisherVM publisher)
         {
-            _publishersService.AddPublisher(publisher);
-            return Ok();
+            var result = _publishersService.AddPublisher(publisher);
+            return Created(nameof(AddPublisher), result);
+        }
+
+        [HttpGet("get-publisher/{id}")]
+        public IActionResult GetPublisher(int id)
+        {
+            var response = _publishersService.GetPublisherById(id);
+
+            if (response != null)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         [HttpGet("get-publisher-data/{id}")]

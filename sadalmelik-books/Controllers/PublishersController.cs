@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using sadalmelik_books.Data.Services;
 using sadalmelik_books.Data.ViewModels;
+using sadalmelik_books.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,10 @@ namespace sadalmelik_books.Controllers
             {
                 var result = _publishersService.AddPublisher(publisher);
                 return Created(nameof(AddPublisher), result);
+            }
+            catch (PublisherNameException ex)
+            {
+                return BadRequest($"{ex.Message}, Publisher Name: {ex.PublisherName}");
             }
             catch (Exception ex)
             {

@@ -1,8 +1,10 @@
 ﻿using sadalmelik_books.Data.Models;
 using sadalmelik_books.Data.ViewModels;
+using sadalmelik_books.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace sadalmelik_books.Data.Services
@@ -18,6 +20,9 @@ namespace sadalmelik_books.Data.Services
 
         public Publisher AddPublisher(PublisherVM publisher)
         {
+            if (StartsWithNumber(publisher.Name))
+                throw new PublisherNameException("Name can't begin with number.", publisher.Name);
+
             var _publisher = new Publisher()
             {
                 Name = publisher.Name
@@ -60,5 +65,7 @@ namespace sadalmelik_books.Data.Services
                 throw new Exception($"The Publisher with Id: {publisherId} does not exist!");
             }
         }
+
+        private bool StartsWithNumber(string name) => Regex.IsMatch(name, @"^\d");
     }
 }

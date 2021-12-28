@@ -21,6 +21,20 @@ namespace sadalmelik_books.Controllers
             _publishersService = publishersService;
         }
 
+        [HttpGet("get-all-publishers")]
+        public IActionResult GetAllPublishers()
+        {
+            try
+            {
+                var result = _publishersService.GetAllPublishers();
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return BadRequest("Sorry some crazy shit happened!");
+            }
+        }
+
         [HttpPost("add-publisher")]
         public IActionResult AddPublisher([FromBody] PublisherVM publisher)
         {

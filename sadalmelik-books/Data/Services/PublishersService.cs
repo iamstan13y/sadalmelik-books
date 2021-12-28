@@ -34,6 +34,8 @@ namespace sadalmelik_books.Data.Services
             return _publisher;
         }
 
+        public List<Publisher> GetAllPublishers() => _context.Publishers.ToList();
+
         public Publisher GetPublisherById(int id) => _context.Publishers.FirstOrDefault(x => x.Id == id);
 
         public PublisherWithBooksAndAuthorsVM GetPublisherData(int publisherId)

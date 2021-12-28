@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace sadalmelik_books.Controllers.v2
 {
+    [ApiVersion("2.0")]
     [Route("api/[controller]")]
     [ApiController]
     public class TestController : ControllerBase

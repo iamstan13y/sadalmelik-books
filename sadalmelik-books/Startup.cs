@@ -40,7 +40,11 @@ namespace sadalmelik_books
 
             services.AddControllers();
 
-            services.AddApiVersioning();
+            services.AddApiVersioning(config => 
+            {
+                config.DefaultApiVersion = new ApiVersion(1, 0);
+                config.AssumeDefaultVersionWhenUnspecified = true;
+            });
 
             services.AddSwaggerGen(c =>
             {

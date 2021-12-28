@@ -39,6 +39,9 @@ namespace sadalmelik_books
             services.AddTransient<PublishersService>();
 
             services.AddControllers();
+
+            services.AddApiVersioning();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "sadalmelik_books", Version = "v1" });

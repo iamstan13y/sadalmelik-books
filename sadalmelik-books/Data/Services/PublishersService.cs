@@ -34,7 +34,24 @@ namespace sadalmelik_books.Data.Services
             return _publisher;
         }
 
-        public List<Publisher> GetAllPublishers() => _context.Publishers.ToList();
+        public List<Publisher> GetAllPublishers(string sortBy)
+        {
+            var publishers = _context.Publishers.OrderBy(n => n.Name).ToList();
+
+            if (!string.IsNullOrEmpty(sortBy))
+            {
+                switch (sortBy)
+                {
+                    case "name_desc":
+                        publishers = publishers.OrderByDescending(n => n.Name).ToList();
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            return publishers;
+        } 
 
         public Publisher GetPublisherById(int id) => _context.Publishers.FirstOrDefault(x => x.Id == id);
 

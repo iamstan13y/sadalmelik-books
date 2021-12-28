@@ -22,11 +22,11 @@ namespace sadalmelik_books.Controllers
         }
 
         [HttpGet("get-all-publishers")]
-        public IActionResult GetAllPublishers(string sortBy)
+        public IActionResult GetAllPublishers(string sortBy, string searchString)
         {
             try
             {
-                var result = _publishersService.GetAllPublishers(sortBy);
+                var result = _publishersService.GetAllPublishers(sortBy, searchString);
                 return Ok(result);
             }
             catch (Exception)

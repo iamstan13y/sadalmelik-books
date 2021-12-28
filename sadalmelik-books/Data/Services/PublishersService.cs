@@ -34,7 +34,7 @@ namespace sadalmelik_books.Data.Services
             return _publisher;
         }
 
-        public List<Publisher> GetAllPublishers(string sortBy)
+        public List<Publisher> GetAllPublishers(string sortBy, string searchString)
         {
             var publishers = _context.Publishers.OrderBy(n => n.Name).ToList();
 
@@ -48,6 +48,12 @@ namespace sadalmelik_books.Data.Services
                     default:
                         break;
                 }
+            }
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                publishers = publishers.Where(n => n.Name.Contains(searchString,
+                    StringComparison.CurrentCultureIgnoreCase)).ToList();
             }
 
             return publishers;

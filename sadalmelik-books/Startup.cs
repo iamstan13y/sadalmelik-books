@@ -47,7 +47,7 @@ namespace sadalmelik_books
                 config.AssumeDefaultVersionWhenUnspecified = true;
 
                 //config.ApiVersionReader = new HeaderApiVersionReader("custom-version-header");
-                config.ApiVersionReader = new MediaTypeApiVersionReader();
+                //config.ApiVersionReader = new MediaTypeApiVersionReader();
             });
 
             services.AddSwaggerGen(c =>

@@ -1,4 +1,5 @@
 ﻿using sadalmelik_books.Data.Models;
+using sadalmelik_books.Data.Paging;
 using sadalmelik_books.Data.ViewModels;
 using sadalmelik_books.Exceptions;
 using System;
@@ -34,7 +35,7 @@ namespace sadalmelik_books.Data.Services
             return _publisher;
         }
 
-        public List<Publisher> GetAllPublishers(string sortBy, string searchString)
+        public List<Publisher> GetAllPublishers(string sortBy, string searchString, int? pageNumber)
         {
             var publishers = _context.Publishers.OrderBy(n => n.Name).ToList();
 
@@ -55,6 +56,9 @@ namespace sadalmelik_books.Data.Services
                 publishers = publishers.Where(n => n.Name.Contains(searchString,
                     StringComparison.CurrentCultureIgnoreCase)).ToList();
             }
+
+            int pageSize = 5;
+            publishers = PaginatedList<Publisher>.Create(publishers.AsQueryable(), pageNumber ?? 1, pageSize);
 
             return publishers;
         } 

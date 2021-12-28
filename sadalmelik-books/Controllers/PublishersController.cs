@@ -1,12 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using sadalmelik_books.Data.Services;
 using sadalmelik_books.Data.ViewModels;
 using sadalmelik_books.Exceptions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace sadalmelik_books.Controllers
 {

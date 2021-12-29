@@ -10,7 +10,9 @@ namespace sadalmelik_books
         {
             try
             {
-                Log.Logger = new LoggerConfiguration().CreateLogger();
+                Log.Logger = new LoggerConfiguration()
+                    .WriteTo.File("Logs/logs.txt", rollingInterval: RollingInterval.Day)
+                    .CreateLogger();
 
                 CreateHostBuilder(args).Build().Run();
             }

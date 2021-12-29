@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using sadalmelik_books.Data.Services;
 using sadalmelik_books.Data.ViewModels;
 using sadalmelik_books.Exceptions;
@@ -11,10 +12,12 @@ namespace sadalmelik_books.Controllers
     public class PublishersController : ControllerBase
     {
         public PublishersService _publishersService;
+        private readonly ILogger<PublishersController> _logger;
 
-        public PublishersController(PublishersService publishersService)
+        public PublishersController(PublishersService publishersService, ILogger<PublishersController> logger)
         {
             _publishersService = publishersService;
+            _logger = logger;
         }
 
         [HttpGet("get-all-publishers")]
@@ -22,6 +25,7 @@ namespace sadalmelik_books.Controllers
         {
             try
             {
+                _logger.LogInformation("This is just a log in GetAllPublishers()");
                 var result = _publishersService.GetAllPublishers(sortBy, searchString, pageNumber);
                 return Ok(result);
             }

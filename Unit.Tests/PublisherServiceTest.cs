@@ -3,6 +3,8 @@ using NUnit.Framework;
 using sadalmelik_books.Data;
 using sadalmelik_books.Data.Models;
 using sadalmelik_books.Data.Services;
+using sadalmelik_books.Data.ViewModels;
+using sadalmelik_books.Exceptions;
 using System;
 using System.Collections.Generic;
 
@@ -27,21 +29,33 @@ namespace Unit.Tests
             publisherService = new(context);
         }
 
-        [Test]
-        public void GetAllPublishers()
+        [Test, Order(1)]
+        public void GetAllPublishersTest()
         {
             var result = publisherService.GetAllPublishers("", "", null);
 
             Assert.That(result.Count, Is.EqualTo(3));
         }
 
-        [Test]
-        public void GetPublisherById()
+        [Test, Order(2)]
+        public void GetPublisherByIdTest()
         {
             var result = publisherService.GetPublisherById(1);
 
             Assert.That(result.Id, Is.EqualTo(1));
             Assert.That(result.Name, Is.EqualTo("Rulan Creative"));
+        }
+
+        [Test, Order(3)]
+        public void AddPublisherTest()
+        {
+            var newPublisher = new PublisherVM()
+            {
+                Name = "47"
+            };
+
+            Assert.That(() => publisherService.AddPublisher(newPublisher), 
+                Throws.Exception.TypeOf<PublisherNameException>().With.Message.EqualTo("Name can't begin with number."));
         }
 
         [OneTimeTearDown]

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.Extensions.Logging;
 using sadalmelik_books.Data.ViewModels;
 using System.Net;
 
@@ -9,12 +10,14 @@ namespace sadalmelik_books.Exceptions
 {
     public static class ExceptionMiddlewareExtensions
     {
-        public static void ConfigureBuildInExceptionHandler(this IApplicationBuilder app)
+        public static void ConfigureBuildInExceptionHandler(this IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
             app.UseExceptionHandler(appError =>
             {
                 appError.Run(async context =>
                 {
+                    var logger = loggerFactory.CreateLogger("ConfigureBuildInExceptionHandler");
+
                     context.Response.StatusCode = (int)HttpStatusCode.OK;
                     context.Response.ContentType = "application/json";
 
@@ -23,13 +26,16 @@ namespace sadalmelik_books.Exceptions
 
                     if (contextFeature != null)
                     {
-                        await context.Response.WriteAsync(new ErrorVM()
+                        var errorVM = new ErrorVM()
                         {
                             StatusCode = context.Response.StatusCode,
                             Message = contextFeature.Error.Message,
                             Path = contextRequest.Path
-                        }.ToString());
+                        }.ToString();
 
+                        logger.LogError(errorVM);
+
+                        await context.Response.WriteAsync(errorVM);
                     }
                 });
             });

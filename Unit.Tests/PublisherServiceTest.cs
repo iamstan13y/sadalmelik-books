@@ -35,6 +35,15 @@ namespace Unit.Tests
             Assert.That(result.Count, Is.EqualTo(3));
         }
 
+        [Test]
+        public void GetPublisherById()
+        {
+            var result = publisherService.GetPublisherById(1);
+
+            Assert.That(result.Id, Is.EqualTo(1));
+            Assert.That(result.Name, Is.EqualTo("Rulan Creative"));
+        }
+
         [OneTimeTearDown]
         public void CleanUp()
         {

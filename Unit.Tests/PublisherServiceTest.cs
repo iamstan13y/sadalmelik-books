@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using sadalmelik_books.Data;
 using sadalmelik_books.Data.Models;
+using sadalmelik_books.Data.Services;
 using System;
 using System.Collections.Generic;
 
@@ -14,6 +15,7 @@ namespace Unit.Tests
             .Options;
 
         AppDbContext context;
+        PublishersService publisherService;
 
         [OneTimeSetUp]
         public void Setup()
@@ -22,6 +24,15 @@ namespace Unit.Tests
             context.Database.EnsureCreated();
 
             SeedDatabase();
+            publisherService = new(context);
+        }
+
+        [Test]
+        public void GetAllPublishers()
+        {
+            var result = publisherService.GetAllPublishers("", "", null);
+
+            Assert.That(result.Count, Is.EqualTo(3));
         }
 
         [OneTimeTearDown]

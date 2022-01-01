@@ -73,6 +73,16 @@ namespace Unit.Tests
             Assert.That(result.Id, Is.Not.Null);
         }
 
+        [Test, Order(5)]
+        public void GetPublisherDataTest()
+        {
+            var result = publisherService.GetPublisherData(1);
+
+            Assert.That(result.Name, Is.EqualTo("Rulan Creative"));
+            Assert.That(result.Books, Is.Not.Empty);
+            Assert.That(result.Books.Count, Is.GreaterThan(0));
+        }
+
         [OneTimeTearDown]
         public void CleanUp()
         {

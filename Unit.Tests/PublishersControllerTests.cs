@@ -32,7 +32,7 @@ namespace Unit.Tests
             publishersController = new(publisherService, new NullLogger<PublishersController>());
         }
 
-        [Test]
+        [Test, Order(1)]
         public void HTTPGET_GetAllPublishersTest()
         {
             IActionResult actionResult = publishersController.GetAllPublishers("name_desc", "Rulan", 1);
@@ -42,6 +42,30 @@ namespace Unit.Tests
             var data = (actionResult as OkObjectResult).Value as List<Publisher>;
 
             Assert.That(data.First().Name, Is.EqualTo("Rulan Creative"));   
+        }
+
+        [Test, Order(2)]
+        public void HTTPGET_GetPublisherByIdTest()
+        {
+            int publisherId = 1;
+            
+            IActionResult actionResult = publishersController.GetPublisher(publisherId);
+
+            Assert.That(actionResult, Is.TypeOf<OkObjectResult>());
+
+            var data = (actionResult as OkObjectResult).Value as Publisher;
+            Assert.That(data.Id, Is.EqualTo(1));
+            Assert.That(data.Name, Is.EqualTo("Rulan Creative").IgnoreCase);
+        }
+        
+        [Test, Order(3)]
+        public void HTTPGET_GetPublisherByIdNotFoundTest()
+        {
+            int publisherId = 47;
+            
+            IActionResult actionResult = publishersController.GetPublisher(publisherId);
+
+            Assert.That(actionResult, Is.TypeOf<NotFoundResult>());
         }
 
         private void SeedDatabase()

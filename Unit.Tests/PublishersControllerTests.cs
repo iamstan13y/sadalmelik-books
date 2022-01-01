@@ -6,6 +6,7 @@ using sadalmelik_books.Controllers;
 using sadalmelik_books.Data;
 using sadalmelik_books.Data.Models;
 using sadalmelik_books.Data.Services;
+using sadalmelik_books.Data.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -66,6 +67,32 @@ namespace Unit.Tests
             IActionResult actionResult = publishersController.GetPublisher(publisherId);
 
             Assert.That(actionResult, Is.TypeOf<NotFoundResult>());
+        }
+
+        [Test, Order(4)]
+        public void HTTPPOST_AddPublisherTest()
+        {
+            var newPublisherVM = new PublisherVM()
+            {
+                Name = "Yet Another Publisher"
+            };
+
+            IActionResult actionResult = publishersController.AddPublisher(newPublisherVM);
+
+            Assert.That(actionResult, Is.TypeOf<CreatedResult>());
+        }
+
+        [Test, Order(5)]
+        public void HTTPPOST_AddPublisherBadRequestTest()
+        {
+            var newPublisherVM = new PublisherVM()
+            {
+                Name = "47 Another Publisher"
+            };
+
+            IActionResult actionResult = publishersController.AddPublisher(newPublisherVM);
+
+            Assert.That(actionResult, Is.TypeOf<BadRequestObjectResult>());
         }
 
         private void SeedDatabase()

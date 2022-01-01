@@ -58,6 +58,21 @@ namespace Unit.Tests
                 Throws.Exception.TypeOf<PublisherNameException>().With.Message.EqualTo("Name can't begin with number."));
         }
 
+        [Test, Order(4)]
+        public void AddPublisherWithoutExceptionTest()
+        {
+            var newPublisher = new PublisherVM()
+            {
+                Name = "The Stantons"
+            };
+
+            var result = publisherService.AddPublisher(newPublisher);
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Name, Does.StartWith("The"));
+            Assert.That(result.Id, Is.Not.Null);
+        }
+
         [OneTimeTearDown]
         public void CleanUp()
         {
